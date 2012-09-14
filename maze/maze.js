@@ -1,5 +1,11 @@
 exports.Grid = function (start, end, cells) {
+    this.victory = function(x, y) {
+        return end[0] === x && end[1] === y;
+    };
 
+    this.getStart = function() {
+        return start;
+    };
 };
 
 var CellType = function(canGoNorth, canGoEast, canGoSouth, canGoWest) {

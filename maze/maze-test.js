@@ -19,7 +19,7 @@ vows.describe('Maze').addBatch({
             assert.isFalse(maze.victory(2, 0));
         },
         'it should have a starting location of 2, 0': function(maze) {
-            assert.isEqual(maze.getStart(), [2, 0]);
+            assert.deepEqual(maze.getStart(), [2, 0]);
         }
     }
 }).export(module);
