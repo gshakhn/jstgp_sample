@@ -3,14 +3,22 @@ var vows = require('vows'),
 
 var maze = require('./maze');
 
-var Engine = maze.Engine;
+var CellTypes = maze.CellTypes;
 
-vows.describe('The Amazing Engine').addBatch({
-    'when there is no game running': {
-        topic: new(Engine),
-
-        'should be able to start a game': function(engine) {
-            assert.deepEqual(engine.getEngineState(), {state: 'notStarted'})
+vows.describe('CellTypes').addBatch({
+    'when have walls to the north, east, and west':{
+        topic: (new CellTypes()).NEW,
+        'it should not have an opening to the south':function (location) {
+            assert.isFalse(location.canGoSouth());
+        },
+        'it should have an opening to the north':function (location) {
+            assert.isTrue(location.canGoNorth());
+        },
+        'it should have an opening to the east':function (location) {
+            assert.isTrue(location.canGoEast());
+        },
+        'it should have an opening to the west':function (location) {
+            assert.isTrue(location.canGoWest());
         }
     }
 }).export(module);
