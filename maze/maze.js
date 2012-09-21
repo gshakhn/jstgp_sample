@@ -1,5 +1,8 @@
 var PlayerDirections = {};
-PlayerDirections.NORTH = {};
+PlayerDirections.NORTH = {name: 'north'};
+PlayerDirections.EAST = {name: 'east'};
+PlayerDirections.WEST = {name: 'west'};
+PlayerDirections.SOUTH = {name: 'south'};
 
 var CellType = function(canGoNorth, canGoEast, canGoSouth, canGoWest) {
     this.northOpen = canGoNorth;
@@ -63,11 +66,54 @@ Labyrinth = function(definition) {
     var grid = new Grid(definition.start, definition.end, definition.cells)
     this.getGrid = function() {
         return grid;
+    };
+    var player = new Player(definition.start, PlayerDirections.NORTH);
+    this.getPlayer = function() {
+        return player;
     }
 };
 
 Player = function(startLocation, startDirection) {
-
+    var location = startLocation;
+    var direction = startDirection;
+    this.getLocation = function() {
+        return location;
+    };
+    this.getDirection = function() {
+        return direction;
+    };
+    this.turnRight = function() {
+        switch(direction) {
+            case PlayerDirections.NORTH:
+                direction = PlayerDirections.EAST;
+                break;
+            case PlayerDirections.EAST:
+                direction = PlayerDirections.SOUTH;
+                break;
+            case PlayerDirections.SOUTH:
+                direction = PlayerDirections.WEST;
+                break;
+            case PlayerDirections.WEST:
+                direction = PlayerDirections.NORTH;
+                break;
+        }
+    };
+    this.turnLeft = function() {
+        switch(direction) {
+            case PlayerDirections.NORTH:
+                direction = PlayerDirections.WEST;
+                break;
+            case PlayerDirections.WEST:
+                direction = PlayerDirections.SOUTH;
+                break;
+            case PlayerDirections.SOUTH:
+                direction = PlayerDirections.EAST;
+                break;
+            case PlayerDirections.EAST:
+                direction = PlayerDirections.NORTH;
+                break;
+        }
+    };
 };
 
 exports.PlayerDirections = PlayerDirections;
