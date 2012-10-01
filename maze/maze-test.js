@@ -10,78 +10,102 @@ var Labyrinth = maze.Labyrinth;
 var PlayerDirections = maze.PlayerDirections;
 
 vows.describe('Labyrinth').addBatch({
-   'when the game starts with a simple labyrinth':{
-       topic: new Labyrinth(simpleLab),
-       'it should have the player at the start location': function(lab) {
-           assert.deepEqual(lab.getPlayer().getLocation(), lab.getGrid().getStart());
-       },
-       'it should have the player facing north': function(lab) {
-           assert.deepEqual(lab.getPlayer().getDirection(), PlayerDirections.NORTH);
-       }
-   }
+    'when the game starts with a simple labyrinth':{
+        topic: new Labyrinth(simpleLab),
+        'it should have the player at the start location': function(lab) {
+            assert.deepEqual(lab.getPlayer().getLocation(), lab.getGrid().getStart());
+        },
+        'it should have the player facing north': function(lab) {
+            assert.deepEqual(lab.getPlayer().getDirection(), PlayerDirections.NORTH);
+        }
+    }
 }).export(module);
 
 vows.describe('Player').addBatch({
     'when the player is facing is north': {
         'and turns to the right': {
-            topic: new Player([0,0], PlayerDirections.NORTH),
-            'it should face east': function(player) {
+            topic: function() {
+                var player = new Player([0,0], PlayerDirections.NORTH);
                 player.turnRight();
+                return player;
+            },
+            'it should face east': function(player) {
                 assert.deepEqual(player.getDirection(), PlayerDirections.EAST);
             }
         },
         'and turns to the left': {
-            topic: new Player([0,0], PlayerDirections.NORTH),
-            'it should face west': function(player) {
+            topic: function() {
+                var player = new Player([0, 0], PlayerDirections.NORTH);
                 player.turnLeft();
+                return player;
+            },
+            'it should face west': function(player) {
                 assert.deepEqual(player.getDirection(), PlayerDirections.WEST);
             }
         },
         'and turns to the right twice': {
-            topic: new Player([0,0], PlayerDirections.NORTH),
+            topic: function() {
+                var player = new Player([0, 0], PlayerDirections.NORTH);
+                player.turnRight();
+                player.turnRight();
+                return player;
+            },
             'it should face south': function(player) {
-                player.turnRight();
-                player.turnRight();
                 assert.deepEqual(player.getDirection(), PlayerDirections.SOUTH);
             }
         },
         'and turns to the left twice': {
-            topic: new Player([0,0], PlayerDirections.NORTH),
+            topic: function() {
+                var player = new Player([0, 0], PlayerDirections.NORTH);
+                player.turnLeft();
+                player.turnLeft();
+                return player;
+            },
             'it should face south': function(player) {
-                player.turnLeft();
-                player.turnLeft();
                 assert.deepEqual(player.getDirection(), PlayerDirections.SOUTH);
             }
         }
     },
     'when the player is facing is south': {
         'and turns to the right': {
-            topic: new Player([0,0], PlayerDirections.SOUTH),
-            'it should face west': function(player) {
+            topic: function() {
+                var player = new Player([0, 0], PlayerDirections.SOUTH);
                 player.turnRight();
+                return player;
+            },
+            'it should face west': function(player) {
                 assert.deepEqual(player.getDirection(), PlayerDirections.WEST);
             }
         },
         'and turns to the left': {
-            topic: new Player([0,0], PlayerDirections.SOUTH),
-            'it should face east': function(player) {
+            topic: function() {
+                var player = new Player([0, 0], PlayerDirections.SOUTH);
                 player.turnLeft();
+                return player;
+            },
+            'it should face east': function(player) {
                 assert.deepEqual(player.getDirection(), PlayerDirections.EAST);
             }
         },
         'and turns to the right twice': {
-            topic: new Player([0,0], PlayerDirections.SOUTH),
+            topic: function() {
+                var player = new Player([0, 0], PlayerDirections.SOUTH);
+                player.turnRight();
+                player.turnRight();
+                return player;
+            },
             'it should face north': function(player) {
-                player.turnRight();
-                player.turnRight();
                 assert.deepEqual(player.getDirection(), PlayerDirections.NORTH);
             }
         },
         'and turns to the left twice': {
-            topic: new Player([0,0], PlayerDirections.SOUTH),
+            topic: function() {
+                var player = new Player([0, 0], PlayerDirections.SOUTH);
+                player.turnLeft();
+                player.turnLeft();
+                return player;
+            },
             'it should face north': function(player) {
-                player.turnLeft();
-                player.turnLeft();
                 assert.deepEqual(player.getDirection(), PlayerDirections.NORTH);
             }
         }
