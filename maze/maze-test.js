@@ -9,6 +9,28 @@ var simpleLab = maze.SampleLabyrinths.simple;
 var Labyrinth = maze.Labyrinth;
 var PlayerDirections = maze.PlayerDirections;
 
+vows.describe('MoveController').addBatch({
+   'when the game starts with a simple labyrinth':{
+       topic: function() {
+           var controller = new Controller(new Labyrinth(simpleLab));
+           return controller;
+       },
+       'it should not let the player move forward': function(controller) {
+           assert.isFalse(controller.canMoveForward());
+       }
+   },
+    'when the game starts with a simple labyrinth and turns right':{
+        topic: function() {
+            var controller = new Controller(new Labyrinth(simpleLab));
+            controller.turnRight();
+            return controller;
+        },
+        'it should let the player move forward': function(controller) {
+            assert.isTrue(controller.canMoveForward());
+        }
+    }
+}).export(module);
+
 vows.describe('Labyrinth').addBatch({
     'when the game starts with a simple labyrinth':{
         topic: new Labyrinth(simpleLab),
